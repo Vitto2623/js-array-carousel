@@ -28,7 +28,7 @@ let containerContent = "";
 for (let i = 0 ; i < items.length; i++){
     containerContent += `
     <div class="container-left">
-        <img src="${items[i]}" alt="immagine-montagne-svizzera">
+        <img src="${items[i]}" alt="random-image">
         <div class="sub-title">
             <h2>${title[i]}</h2>
             <h3>${text[i]}</h3>
@@ -40,11 +40,38 @@ for (let i = 0 ; i < items.length; i++){
 const wrapper = document.querySelector("div.wrapper");
 wrapper.innerHTML = containerContent;
 
-// prendo il container left
-const elementsContainerLeft = document.getElementsByClassName("container-left");
-console.log(elementsContainerLeft);
-// aggiungo una funzionalità al button up
-const upButton = document.getElementsByClassName("button-up");
-upButton.addEventListener('click', function(){
+// recupero bordo immagini
+const borderOff = document.getElementsByClassName("border");
 
+const containerLeft = document.getElementsByClassName("container-left");
+containerLeft[0].classList.add("active");
+borderOff[0].classList.add('active-border');
+console.log(containerLeft);
+
+let activeElement = 0;
+
+// aggiungo una funzionalità al button-bottom
+const downButton = document.getElementById("button-down");
+downButton.addEventListener('click', function(){
+    containerLeft[activeElement].classList.remove("active");
+    borderOff[activeElement].classList.remove('active-border');
+    activeElement ++ ;
+    if (activeElement == 5){
+        activeElement = 0;
+    }
+    containerLeft[activeElement].classList.add("active");
+    borderOff[activeElement].classList.add('active-border');
 });
+
+// aggiungo una funzionalità al button-up
+const upButton = document.getElementById("button-up");
+upButton.addEventListener('click', function(){
+    containerLeft[activeElement].classList.remove("active");
+    borderOff[activeElement].classList.remove('active-border');
+    activeElement -- ;
+    if (activeElement == -1){
+        activeElement = 4;
+    }
+    containerLeft[activeElement].classList.add("active");
+    borderOff[activeElement].classList.add('active-border');
+}); 
